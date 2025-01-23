@@ -1,0 +1,284 @@
+{
+	"info": {
+		"_postman_id": "83f4f4a0-a1c3-42f0-aba2-0278f323929b",
+		"name": "Assessment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30629347",
+		"_collection_link": "https://winter-flare-269327.postman.co/workspace/MTN-POS-INTEGRATION~b439b70d-cb3b-44e4-b76a-698372f4f156/collection/30629347-83f4f4a0-a1c3-42f0-aba2-0278f323929b?action=share&source=collection_link&creator=30629347"
+	},
+	"item": [
+		{
+			"name": "Create_Employee",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let number = pm.collectionVariables.get(\"number\")\r",
+							"if(!number || isNaN(number)) {\r",
+							"    number = 0;\r",
+							"}\r",
+							"let randomNumber = (parseInt(number) + 1)\r",
+							"const name = \"Timilehin\" + randomNumber\r",
+							"\r",
+							"pm.collectionVariables.set(\"random_name\", name)\r",
+							"pm.collectionVariables.set(\"number\", randomNumber)\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response has the required fields - name, salary, age, id\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData).to.be.an('object');\r",
+							"  pm.expect(responseData.data).to.be.an('object');\r",
+							"  pm.expect(responseData.data).to.have.property('name');\r",
+							"  pm.expect(responseData.data).to.have.property('salary');\r",
+							"  pm.expect(responseData.data).to.have.property('age');\r",
+							"  pm.expect(responseData.data).to.have.property('id');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Name, salary, and age are in valid format\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.data.name).to.be.a('string').and.to.have.length.above(0, \"Name should be a non-empty string\");\r",
+							"    pm.expect(responseData.data.salary).to.be.a('string').and.to.match(/^\\d+$/, \"Salary should be a string containing only digits\");\r",
+							"    pm.expect(parseInt(responseData.data.age)).to.be.a('number').and.to.be.at.least(0, \"Age should be a non-negative number\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Message is a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Message should not be empty\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "humans_21909",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{random_name}}\",\r\n    \"salary\": \"2000000\",\r\n    \"age\": \"23\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://dummy.restapiexample.com/api/v1/create",
+					"protocol": "http",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Employees",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Each employee has a profile image\", function () {\r",
+							"  pm.response.json().data.forEach(function(employee) {\r",
+							"    pm.expect(employee).to.have.property('profile_image');\r",
+							"  });\r",
+							"});\r",
+							"pm.test(\"Response body contains the required attributes\", function () {\r",
+							"  var responseJSON = pm.response.json();\r",
+							"  pm.expect(responseJSON).to.have.property('status');\r",
+							"  pm.expect(responseJSON).to.have.property('data');\r",
+							"  pm.expect(responseJSON).to.have.property('message');\r",
+							"  \r",
+							"  responseJSON.data.forEach(function(employee) {\r",
+							"    pm.expect(employee).to.have.property('id');\r",
+							"    pm.expect(employee).to.have.property('employee_name');\r",
+							"    pm.expect(employee).to.have.property('employee_salary');\r",
+							"    pm.expect(employee).to.have.property('employee_age');\r",
+							"  });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "humans_21909",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://dummy.restapiexample.com/api/v1/employees",
+					"protocol": "http",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch_Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is within an acceptable range\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response body has the required fields\", function () {\r",
+							"    const responseData = pm.response.text(); // Changed from pm.response.json() to pm.response.text() to handle HTML response\r",
+							"    pm.expect(responseData).to.include('id');\r",
+							"    pm.expect(responseData).to.include('employee_name');\r",
+							"    pm.expect(responseData).to.include('employee_salary');\r",
+							"    pm.expect(responseData).to.include('employee_age');\r",
+							"    pm.expect(responseData).to.include('profile_image');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status and message fields should not be empty strings\", function () {\r",
+							"    const responseData = pm.response.text(); // Changed from pm.response.json() to pm.response.text() to handle HTML response\r",
+							"    pm.expect(responseData).to.include('status\":\"success\"');\r",
+							"    pm.test(\"Message field should not be an empty string\", function () {\r",
+							"    pm.expect(responseData).to.include('message\":\"Successfully! Record has been fetched.\"');\r",
+							"    })\r",
+							"});\r",
+							"pm.test(\"Status and message fields should not be empty strings\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    pm.expect(responseData.status).to.be.a('string').and.to.not.be.empty;\r",
+							"    pm.expect(responseData.message).to.be.a('string').and.to.not.be.empty;\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "humans_21909",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://dummy.restapiexample.com/api/v1/employee/5",
+					"protocol": "http",
+					"host": [
+						"dummy",
+						"restapiexample",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employee",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "random_name",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "number",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
