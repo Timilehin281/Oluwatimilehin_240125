@@ -3,11 +3,14 @@
  **Table of Contents**
 
 - **[Overview]**
+- **Main** 
 - **[API Tests]**
   - [1st API]
   - [2nd API]
   - [3rd API]
 - **[Mobile Automation]**
+- **Branch**
+- **QA APP**
 -**[CI/CD Pipeline]**
 - **[Setup and Usage]**
 - **[Performance Analysis]**
@@ -110,17 +113,11 @@ A CI/CD pipeline is set up using GitHub Actions.
    pip install -r requirements.txt
    ```
 3. Run API tests:
-   ```bash
-   pytest api_tests/ --alluredir=reports/
-   ```
+  
 4. Run mobile tests:
-   ```bash
-   pytest mobile_tests/ --alluredir=reports/
-   ```
+  
 5. View reports:
-   ```bash
-   allure serve reports/
-   ```
+  
 
 ---
 
