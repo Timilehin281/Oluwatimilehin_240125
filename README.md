@@ -65,7 +65,7 @@ Automated tests for the APIs are implemented using Javascript with Postman
 Automated tests for the mobile app use `Appium` integrated with intellej.
 
 - **Login Tests**:
-  - Valid credentials (`test@user1.com`, `Password1.`).
+  - Valid credentials (`test@user1.com`,test@user2.com, test@user3.com,`Password1.`).
   - Invalid credentials.
 - **Navigation Tests**:
   - Validate transitions across home, settings, and profile screens.
@@ -92,7 +92,7 @@ Automated tests for the mobile app use `Appium` integrated with intellej.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/YourName/QA_Automation_Solution.git
+   git clone https://github.com/Oluwatimilehin_240125/QA_Automation_Solution.git
    cd QA_Automation_Solution
    ```
 2. Install dependencies:
