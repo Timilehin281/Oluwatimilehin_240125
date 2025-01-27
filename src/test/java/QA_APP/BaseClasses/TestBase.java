@@ -1,7 +1,9 @@
 package QA_APP.BaseClasses;
 
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -63,7 +65,12 @@ public class TestBase {
             e.printStackTrace();
         }
     }
-
+    public WebDriverWait waitForElement(int seconds) {
+        return new WebDriverWait(driver, Duration.ofSeconds(seconds));
+    }
+    public void clearField(WebElement el) {
+        el.clear();
+    }
 
     @AfterClass
     public void tearDown() {
