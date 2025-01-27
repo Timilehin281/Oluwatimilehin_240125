@@ -109,9 +109,8 @@ A CI/CD pipeline is set up using GitHub Actions.
    cd QA_Automation_Solution
    ```
 2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+   
+  
 3. Run API tests:
   
 4. Run mobile tests:
