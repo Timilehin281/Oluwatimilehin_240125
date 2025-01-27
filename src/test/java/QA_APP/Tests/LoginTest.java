@@ -18,11 +18,31 @@ public class LoginTest extends TestBase {
         loginPage = new LoginPage(driver);
     }
     @Test(priority = 1, description = "Validate that user can login with valid credentials")
-    public void verify_user_can_login_successfully(Method method) {
+    public void verify_user_can_login_successfully_wth_first_email(Method method) {
         startTest(method.getName(), method.getAnnotation(Test.class).description(), "Login");
         initializer();
         welcomePage.clickLoginBtn();
         loginPage.enterEmail(testData.getProperty("email1"));
+        loginPage.enterPassword( testData.getProperty("password"));
+        loginPage.clickLoginBtn();
+    }
+
+    @Test(priority = 2, description = "Validate that user can login with valid credentials")
+    public void verify_user_can_login_successfully_wth_second_email(Method method) {
+        startTest(method.getName(), method.getAnnotation(Test.class).description(), "Login");
+        initializer();
+        welcomePage.clickLoginBtn();
+        loginPage.enterEmail(testData.getProperty("email2"));
+        loginPage.enterPassword( testData.getProperty("password"));
+        loginPage.clickLoginBtn();
+    }
+
+    @Test(priority = 3, description = "Validate that user can login with valid credentials")
+    public void verify_user_can_login_successfully_wth_third_email(Method method) {
+        startTest(method.getName(), method.getAnnotation(Test.class).description(), "Login");
+        initializer();
+        welcomePage.clickLoginBtn();
+        loginPage.enterEmail(testData.getProperty("email3"));
         loginPage.enterPassword( testData.getProperty("password"));
         loginPage.clickLoginBtn();
     }
