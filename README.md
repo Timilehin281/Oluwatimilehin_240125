@@ -78,19 +78,6 @@ Automated tests for the mobile app use `Appium` integrated with intellej.
 
 ---
 
-## CI/CD Pipeline
-
-A CI/CD pipeline is set up using GitHub Actions.
-
-- **Pipeline Features**:
-  - Execute API and mobile automation scripts on code commits.
-  - Generate test execution reports.
-  - Notifications for test results.
-- **Documentation**:
-  - Steps to set up the pipeline are provided in the repository.
-
-
-
 ## Setup and Usage
 
 ### Prerequisites
