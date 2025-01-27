@@ -109,7 +109,7 @@ Automated tests for the mobile app use `Appium` integrated with intellej.
 
 ## Performance Analysis
 
-Performance testing was conducted using `Locust` for the APIs. Metrics include:
+Performance testing was conducted using postman for the APIs. Metrics include:
 
 - **Latency**: Average response time.
 - **Throughput**: Requests per second.
